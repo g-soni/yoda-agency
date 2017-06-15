@@ -3,7 +3,11 @@ class Api::AgenciesController < ApplicationController
   def index
     filter_hash = params.select { |k,v| k == "name" || k == 'tag'}
     agencies = Agency.search filter_hash
-    render json: agencies
+    unless agencies.blank?
+      render json: agencies
+    else
+      render json: {error: 'No agency found'}, status: :not_found
+    end
   end
 
   def create
@@ -12,9 +16,9 @@ class Api::AgenciesController < ApplicationController
       agency.tags.build(name: tag)
     end
     if agency.save
-      render json: { agency: agency, status: :ok}
+      render json: { agency: agency }
     else
-      render json: { error: agency.errors.full_messages , status: :bad_request}
+      render json: { error: agency.errors.full_messages}, status: :bad_request
     end
   end
 
