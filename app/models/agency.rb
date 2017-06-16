@@ -2,12 +2,17 @@ class Agency < ApplicationRecord
   enum grade: [ 'Padawan', 'Jedi', 'Master' ]
 
   has_many :tags
+
+  validates :name, :description, :grade, presence: true
+  validates :grade, inclusion: { in: Agency.grades.keys }
+  validates_associated :tags
+  
   
   default_scope { order(grade: :desc) }
   
   def self.search filter_params = {}
     if filter_params[:name].present? || filter_params[:tag].present?
-      joins(:tags).where("lower(agencies.name) = ? OR lower(tags.name) = ?", filter_params[:name].downcase, filter_params[:tag].downcase).uniq
+      joins(:tags).where("lower(agencies.name) = ? OR lower(tags.name) = ?", filter_params[:name].try(:downcase), filter_params[:tag].try(:downcase)).distinct
     else
       self.all
     end
