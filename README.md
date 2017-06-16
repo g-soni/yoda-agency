@@ -1,24 +1,37 @@
-# README
+# Yoda Agency Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Environment
 
-Things you may want to cover:
+* Ruby 2.4.0
+* Rails 5.0.3
+* Rspec 3.6.0
 
-* Ruby version
+## Configuration
 
-* System dependencies
+### Clone the repo at local machine:
+  * git clone https://github.com/piyush55/cndlunarlocator.git
 
-* Configuration
+### Setup
 
-* Database creation
+#### Install bundler and run `bundle install`:
 
-* Database initialization
+```bash
+gem install bundler && bundle
+```
+#### Database setup:
 
-* How to run the test suite
+```bash
+rename database.yml.example to database.yml
+add your postgres db configuration in database.yml 
+run rake db:create && rake db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### How to run the application
 
-* Deployment instructions
+```bash
+ rails s
+```
+### How to run the test suite
 
-* ...
+```bash
+ rspec
