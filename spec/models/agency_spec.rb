@@ -43,7 +43,7 @@ RSpec.describe Agency, type: :model do
     
     it 'should retrun tag list with comma separated' do
       4.times {|i| FactoryGirl.create(:tag, name: "Tag#{i+1}" ,agency: @agency) }
-      expect(@agency.tag_list).to eq 'Tag1,Tag2,Tag3,Tag4'
+      expect(@agency.reload.tag_list).to eq 'Tag1,Tag2,Tag3,Tag4'
     end
   end
     
